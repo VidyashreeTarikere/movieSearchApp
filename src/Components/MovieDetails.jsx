@@ -31,17 +31,10 @@ const MovieDetails = ({ countryCode }) => {
     },
   };
 
-  //   const typeApi = `https://api.themoviedb.org/3/search/multi`
-
-  //   useEffect(() => {
-
-  //   })
-
   const movieApi = `https://api.themoviedb.org/3/${type}/${id}`;
   const movieVideoApi = `https://api.themoviedb.org/3/${type}/${id}/videos`;
   const movieCrewApi = `https://api.themoviedb.org/3/${type}/${id}/credits`;
   const movieWhereToWatchApi = `https://api.themoviedb.org/3/${type}/${id}/watch/providers`;
-  //   const tvApi = `https://api.themoviedb.org/3/tv/${id}`;
 
   useEffect(() => {
     const handleDisplayDetails = async () => {

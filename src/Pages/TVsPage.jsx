@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import TVFilter from "../Components/TVFilter";
 import TVs from "../api/TVs";
 import Search from "../Components/SearchBar";
-import AISearch from "../Components/AISearchBar";
 
 const TVsPage = ({ exploreType, setExploreType, explore, setExplore }) => {
   const history = useNavigate();
@@ -20,9 +19,6 @@ const TVsPage = ({ exploreType, setExploreType, explore, setExplore }) => {
             explore={explore}
             setExplore={setExplore}
           />
-        </div>
-        <div className="relative w-1/2">
-          <AISearch />
         </div>
       </div>
 

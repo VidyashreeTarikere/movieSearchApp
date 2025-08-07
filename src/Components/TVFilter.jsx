@@ -4,6 +4,9 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Fragment } from "react";
 import clsx from "clsx";
 import MovieGrid from "./MovieGrid";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import "react-horizontal-scrolling-menu/dist/styles.css";
 
 const TVFilter = ({ exploreType, setExploreType, explore, setExplore }) => {
   const [genresArray, setGenresArray] = useState([]);
@@ -71,6 +74,30 @@ const TVFilter = ({ exploreType, setExploreType, explore, setExplore }) => {
     }
   };
 
+  const LeftArrow = () => {
+    const { scrollPrev } = React.useContext(VisibilityContext);
+    return (
+      <button
+        className="p-2 bg-white rounded-full shadow"
+        onClick={() => scrollPrev()}
+      >
+        <FaChevronLeft />
+      </button>
+    );
+  };
+
+  const RightArrow = () => {
+    const { scrollNext } = React.useContext(VisibilityContext);
+    return (
+      <button
+        className="p-2 bg-white rounded-full shadow"
+        onClick={() => scrollNext()}
+      >
+        <FaChevronRight />
+      </button>
+    );
+  };
+
   return (
     <>
       <div>
@@ -127,15 +154,17 @@ const TVFilter = ({ exploreType, setExploreType, explore, setExplore }) => {
       )}
 
       {explore && exploreType === "genre" && !spinner && isEmpty > 0 ? (
-        <div className="flex flex-col">
-          <h1>TV Shows in {genreSearchTextContent}</h1>
-          <div className="flex flex-wrap gap-12">
+        <div className="flex-col w-full overflow-hidden inline-flex flex-nowrap">
+          <h1 className="text-2xl font-bold m-4">
+            TV Shows in {genreSearchTextContent}
+          </h1>
+          <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {searchArray.map((movie) => (
-              <div key={movie.id}>
+              <div key={movie.id} className="mx-2">
                 <MovieGrid movie={movie} />
               </div>
             ))}
-          </div>
+          </ScrollMenu>
         </div>
       ) : (
         <div></div>

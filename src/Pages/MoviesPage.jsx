@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Search from "../Components/SearchBar";
-import AISearch from "../Components/AISearchBar";
+
 import MovieFilter from "../Components/MovieFilter";
 import MoviesPage from "../api/Movies";
 
@@ -20,9 +20,6 @@ const Movies = ({ exploreType, setExploreType, explore, setExplore }) => {
             explore={explore}
             setExplore={setExplore}
           />
-        </div>
-        <div className="relative w-1/2">
-          <AISearch />
         </div>
       </div>
       <div className="pl-30">

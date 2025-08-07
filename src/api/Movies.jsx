@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MovieGrid from "../Components/MovieGrid";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import "react-horizontal-scrolling-menu/dist/styles.css";
 
 const MoviesPage = ({ explore }) => {
-  //   console.log(explore);
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
-  const [latestMovies, setLatestMovies] = useState([]);
 
   const options = {
     method: "GET",
@@ -20,8 +21,29 @@ const MoviesPage = ({ explore }) => {
   //Upcoming movies
   const upcomingApi = `https://api.themoviedb.org/3/movie/upcoming`;
 
-  //Latest movies
-  const latestApi = `https://api.themoviedb.org/3/movie/latest`;
+  const LeftArrow = () => {
+    const { scrollPrev } = useContext(VisibilityContext);
+    return (
+      <button
+        className="p-5 bg-white rounded-full shadow"
+        onClick={() => scrollPrev()}
+      >
+        <FaChevronLeft />
+      </button>
+    );
+  };
+
+  const RightArrow = () => {
+    const { scrollNext } = useContext(VisibilityContext);
+    return (
+      <button
+        className="p-5 bg-white rounded-full shadow"
+        onClick={() => scrollNext()}
+      >
+        <FaChevronRight />
+      </button>
+    );
+  };
 
   useEffect(() => {
     if (!explore) {
@@ -52,27 +74,16 @@ const MoviesPage = ({ explore }) => {
           upcomingMoviesArray = Object.values(data.results);
         }
 
-        setUpcomingMovies(upcomingMoviesArray);
-      };
-
-      const handleLatestMovies = async () => {
-        const response = await fetch(latestApi, options);
-        const data = await response.json();
-
-        let latestMoviesArray = [];
-
-        if (Array.isArray(data.results)) {
-          latestMoviesArray = data.results;
-        } else if (typeof data.results === "object") {
-          latestMoviesArray = Object.values(data.results);
-        }
-
-        setLatestMovies(latestMoviesArray);
+        setUpcomingMovies(
+          upcomingMoviesArray.map((item) => ({
+            ...item,
+            media_type: "movie",
+          }))
+        );
       };
 
       handleTrendingMovies();
       handleUpcomingMovies();
-      handleLatestMovies();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [explore]);
@@ -80,33 +91,24 @@ const MoviesPage = ({ explore }) => {
   return (
     <>
       {!explore ? (
-        <div className="flex flex-col">
-          <h1>Trending Movies</h1>
-          <div className="flex flex-wrap gap-12">
+        <div className="flex-col w-full overflow-hidden inline-flex flex-nowrap">
+          <h1 className="text-2xl font-bold m-4">Trending Movies</h1>
+          <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {trendingMovies.map((movie) => (
-              <div key={movie.id}>
+              <div key={movie.id} className="mx-2">
                 <MovieGrid movie={movie} />
               </div>
             ))}
-          </div>
+          </ScrollMenu>
 
-          <h1>Upcoming Movies</h1>
-          <div className="flex flex-wrap gap-12">
+          <h1 className="text-2xl font-bold m-4">Upcoming Movies</h1>
+          <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {upcomingMovies.map((movie) => (
-              <div key={movie.id}>
+              <div key={movie.id} className="mx-2">
                 <MovieGrid movie={movie} />
               </div>
             ))}
-          </div>
-
-          <h1>Latest Movies</h1>
-          <div className="flex flex-row gap-12">
-            {latestMovies.map((movie) => (
-              <div key={movie.id}>
-                <MovieGrid movie={movie} />
-              </div>
-            ))}
-          </div>
+          </ScrollMenu>
         </div>
       ) : (
         <div></div>

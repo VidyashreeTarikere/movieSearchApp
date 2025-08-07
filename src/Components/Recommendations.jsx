@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import MovieGrid from "./MovieGrid";
+import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import "react-horizontal-scrolling-menu/dist/styles.css";
 
 const Recommendations = ({ movieIds }) => {
   const [recommendations, setRecommendations] = useState([]);
@@ -40,21 +43,48 @@ const Recommendations = ({ movieIds }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieIds]);
 
+  const LeftArrow = () => {
+    const { scrollPrev } = React.useContext(VisibilityContext);
+    return (
+      <button
+        className="p-5 bg-white rounded-full shadow"
+        onClick={() => scrollPrev()}
+      >
+        <FaChevronLeft />
+      </button>
+    );
+  };
+
+  const RightArrow = () => {
+    const { scrollNext } = React.useContext(VisibilityContext);
+    return (
+      <button
+        className="p-5 bg-white rounded-full shadow"
+        onClick={() => scrollNext()}
+      >
+        <FaChevronRight />
+      </button>
+    );
+  };
+
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-xl font-semibold mb-2">Recommended for You:</h1>
-      {recommendations.map((recGroup) =>
-        recGroup.results.length ? (
-          <div key={recGroup.sourceId}>
-            <div className="flex flex-wrap gap-6">
-              {recGroup.results.map((movie) => (
-                <MovieGrid key={movie.id} movie={movie} />
-              ))}
-            </div>
-          </div>
-        ) : (
-          <div>Sorry no recommendations for you!</div>
-        )
+    <div className="flex-col w-full overflow-hidden">
+      <h1 className="text-2xl font-bold m-4">Recommended for You</h1>
+
+      {recommendations.every((recGroup) => recGroup.results.length === 0) ? (
+        <div className="text-center text-gray-500 my-4">
+          Sorry, no recommendations for you!
+        </div>
+      ) : (
+        <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
+          {recommendations.flatMap((recGroup) =>
+            recGroup.results.map((movie) => (
+              <div key={`${recGroup.sourceId}-${movie.id}`} className="mx-2">
+                <MovieGrid movie={movie} />
+              </div>
+            ))
+          )}
+        </ScrollMenu>
       )}
     </div>
   );

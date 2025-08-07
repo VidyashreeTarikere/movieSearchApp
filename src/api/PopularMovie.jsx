@@ -32,7 +32,12 @@ const PopularMovie = ({ explore }) => {
           famousMovieArray = Object.values(data.results);
         }
         // console.log(famousMovieArray);
-        setFamousMovie(famousMovieArray);
+        setFamousMovie(
+          famousMovieArray.map((item) => ({
+            ...item,
+            media_type: "movie",
+          }))
+        );
       };
 
       const handlePopularTV = async () => {
@@ -47,7 +52,12 @@ const PopularMovie = ({ explore }) => {
           famousTVArray = Object.values(data.results);
         }
         console.log(famousTVArray);
-        setFamousTV(famousTVArray);
+        setFamousTV(
+          famousTVArray.map((item) => ({
+            ...item,
+            media_type: "tv",
+          }))
+        );
       };
       handlePopularMovies();
       handlePopularTV();
