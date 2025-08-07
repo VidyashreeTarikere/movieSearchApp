@@ -98,10 +98,22 @@ const MovieDetails = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const allowedProviders = ["Amazon Video", "YouTube", "Netflix", "Apple TV"];
-  const availableSites = watchSite.filter((v) =>
-    allowedProviders.includes(v.provider_name)
-  );
+  const allowedProviders = [
+    { name: "Amazon Video", link: "https://www.amazon.com/video" },
+    { name: "YouTube", link: "https://youtube.com" },
+    { name: "Netflix", link: "https://www.netflix.com" },
+    { name: "Apple TV", link: "https://tv.apple.com" },
+  ];
+
+  const availableSites = watchSite
+    .filter((v) => allowedProviders.some((p) => p.name === v.provider_name))
+    .map((v) => {
+      const provider = allowedProviders.find((p) => p.name === v.provider_name);
+      return {
+        ...v,
+        link: provider ? provider.link : null,
+      };
+    });
 
   const trailers = videos.filter(
     (v) => v.site === "YouTube" && v.type === "Trailer"
@@ -188,13 +200,15 @@ const MovieDetails = () => {
               {watchSite.length > 0 ? (
                 <>
                   {availableSites.map((provider) => (
-                    <img
-                      key={provider.provider_id}
-                      src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
-                      alt={provider.provider_name}
-                      title={provider.provider_name}
-                      className="w-10 h-10 rounded"
-                    />
+                    <a href={provider.link} target="_blank">
+                      <img
+                        key={provider.provider_id}
+                        src={`https://image.tmdb.org/t/p/w45${provider.logo_path}`}
+                        alt={provider.provider_name}
+                        title={provider.provider_name}
+                        className="w-10 h-10 rounded"
+                      />
+                    </a>
                   ))}
                 </>
               ) : (

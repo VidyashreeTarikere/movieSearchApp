@@ -4,13 +4,7 @@ import Avatar from "./Avatar";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "./SearchBar";
 
-const Header = ({
-  supabase,
-
-  setExploreType,
-
-  setExplore,
-}) => {
+const Header = ({ supabase, setExploreType, setExplore }) => {
   const navigate = useNavigate();
 
   const handleLogoClick = () => {
