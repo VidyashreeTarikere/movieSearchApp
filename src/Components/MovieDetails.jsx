@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import grayUser from "../assets/icons8-grey.svg";
 import Recommendations from "./Recommendations";
@@ -20,6 +20,8 @@ const MovieDetails = ({ countryCode }) => {
     state: false,
     number: "0",
   });
+
+  const history = useNavigate();
 
   const options = {
     method: "GET",
@@ -98,6 +100,7 @@ const MovieDetails = ({ countryCode }) => {
       setWatchSite(uniqueProviders);
     };
     handleWhereToWatch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countryCode, id]);
 
   const allowedProviders = [
@@ -181,6 +184,9 @@ const MovieDetails = ({ countryCode }) => {
       ) : (
         <>
           <div>
+            <div>
+              <button onClick={() => history(-1)}>Back</button>
+            </div>
             <img
               src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
               alt="Movie poster"

@@ -1,12 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import TVFilter from "../Components/TVFilter";
 import TVs from "../api/TVs";
 import Search from "../Components/SearchBar";
 import AISearch from "../Components/AISearchBar";
 
 const TVsPage = ({ exploreType, setExploreType, explore, setExplore }) => {
+  const history = useNavigate();
   return (
     <div>
+      <div>
+        <button onClick={() => history(-1)}>Back</button>
+      </div>
       <div className="flex flex-row">
         <div className="relative w-1/2">
           <Search

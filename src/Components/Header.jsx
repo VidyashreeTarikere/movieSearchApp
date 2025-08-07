@@ -50,6 +50,7 @@ const Header = ({ supabase, setExploreType, setExplore, setCountryCode }) => {
     };
 
     getCountryCode();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lat, long]);
 
   const handleLogoClick = () => {
