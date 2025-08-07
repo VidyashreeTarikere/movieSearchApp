@@ -15,6 +15,7 @@ export default function App() {
   const [session, setSession] = useState(null);
   const [explore, setExplore] = useState(false);
   const [exploreType, setExploreType] = useState(null);
+  const [countryCode, setCountryCode] = useState(null);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -42,6 +43,7 @@ export default function App() {
             supabase={supabase}
             setExploreType={setExploreType}
             setExplore={setExplore}
+            setCountryCode={setCountryCode}
           />
         </div>
 
@@ -99,7 +101,10 @@ export default function App() {
 
               <Route path="/signin" element={<SignIn supabase={supabase} />} />
 
-              <Route path="/details/:id" element={<MovieDetails />} />
+              <Route
+                path="/details/:id"
+                element={<MovieDetails countryCode={countryCode} />}
+              />
             </Routes>
           </main>
         </div>

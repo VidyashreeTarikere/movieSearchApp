@@ -8,14 +8,12 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { supabase } from "../Utils/SupabaseClient";
 import AddFavorite from "./AddFavorite";
 
-const MovieDetails = () => {
+const MovieDetails = ({ countryCode }) => {
   const { id } = useParams();
   const [details, setDetails] = useState(null);
   const [videos, setVideos] = useState([]);
   const [crew, setCrew] = useState([]);
-
   const [watchSite, setWatchSite] = useState([]);
-
   const [isOpen, setIsOpen] = useState(false);
   const [movieIds, setMovieIds] = useState([{ movie_id: null, type: "" }]);
   const [heart, setHeartRed] = useState({
@@ -70,13 +68,22 @@ const MovieDetails = () => {
       setCrew(data.cast);
     };
 
+    handleDisplayDetails();
+    handleGetVideos();
+    handleGetCrew();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  useEffect(() => {
     const handleWhereToWatch = async () => {
       const response = await fetch(movieWhereToWatchApi, options);
       const data = await response.json();
 
       console.log(data.results);
 
-      const whereToWatchArray = data.results.US;
+      const whereToWatchArray = data.results[countryCode];
+      console.log(whereToWatchArray);
 
       const providerLinks = [
         ...(whereToWatchArray.flatrate || []),
@@ -90,19 +97,15 @@ const MovieDetails = () => {
       //   setWhereToWatch(whereToWatchArray.link);
       setWatchSite(uniqueProviders);
     };
-
-    handleDisplayDetails();
-    handleGetVideos();
-    handleGetCrew();
     handleWhereToWatch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [countryCode, id]);
 
   const allowedProviders = [
     { name: "Amazon Video", link: "https://www.amazon.com/video" },
     { name: "YouTube", link: "https://youtube.com" },
     { name: "Netflix", link: "https://www.netflix.com" },
     { name: "Apple TV", link: "https://tv.apple.com" },
+    { name: "Rakuten TV", link: "https://www.rakuten.tv/" },
   ];
 
   const availableSites = watchSite

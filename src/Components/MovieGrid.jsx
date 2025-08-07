@@ -3,7 +3,6 @@ import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
 import { supabase } from "../Utils/SupabaseClient";
 import React, { useEffect, useState } from "react";
 import AddFavorite from "./AddFavorite";
-import MovieDetails from "./MovieDetails";
 import { useNavigate } from "react-router-dom";
 
 const MovieGrid = ({ movie }) => {
