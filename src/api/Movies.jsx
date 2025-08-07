@@ -5,7 +5,7 @@ const MoviesPage = ({ explore }) => {
   //   console.log(explore);
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
-  //   const [latestMovies, setLatestMovies] = useState([]);
+  const [latestMovies, setLatestMovies] = useState([]);
 
   const options = {
     method: "GET",
@@ -21,7 +21,7 @@ const MoviesPage = ({ explore }) => {
   const upcomingApi = `https://api.themoviedb.org/3/movie/upcoming`;
 
   //Latest movies
-  //   const latestApi = `https://api.themoviedb.org/3/movie/latest`;
+  const latestApi = `https://api.themoviedb.org/3/movie/latest`;
 
   useEffect(() => {
     if (!explore) {
@@ -55,24 +55,24 @@ const MoviesPage = ({ explore }) => {
         setUpcomingMovies(upcomingMoviesArray);
       };
 
-      //   const handleLatestMovies = async () => {
-      //     const response = await fetch(latestApi, options);
-      //     const data = await response.json();
+      const handleLatestMovies = async () => {
+        const response = await fetch(latestApi, options);
+        const data = await response.json();
 
-      //     let latestMoviesArray = [];
+        let latestMoviesArray = [];
 
-      //     if (Array.isArray(data.results)) {
-      //       latestMoviesArray = data.results;
-      //     } else if (typeof data.results === "object") {
-      //       latestMoviesArray = Object.values(data.results);
-      //     }
-      //     console.log(latestMoviesArray);
-      //     setLatestMovies(latestMoviesArray);
-      //   };
+        if (Array.isArray(data.results)) {
+          latestMoviesArray = data.results;
+        } else if (typeof data.results === "object") {
+          latestMoviesArray = Object.values(data.results);
+        }
+
+        setLatestMovies(latestMoviesArray);
+      };
 
       handleTrendingMovies();
       handleUpcomingMovies();
-      //   handleLatestMovies();
+      handleLatestMovies();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [explore]);
@@ -99,14 +99,14 @@ const MoviesPage = ({ explore }) => {
             ))}
           </div>
 
-          {/* <h1>Latest Movies</h1>
+          <h1>Latest Movies</h1>
           <div className="flex flex-row gap-12">
             {latestMovies.map((movie) => (
               <div key={movie.id}>
                 <MovieGrid movie={movie} />
               </div>
             ))}
-          </div> */}
+          </div>
         </div>
       ) : (
         <div></div>

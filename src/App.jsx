@@ -102,7 +102,7 @@ export default function App() {
               <Route path="/signin" element={<SignIn supabase={supabase} />} />
 
               <Route
-                path="/details/:id"
+                path="/details/:type/:id"
                 element={<MovieDetails countryCode={countryCode} />}
               />
             </Routes>

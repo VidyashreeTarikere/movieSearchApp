@@ -9,7 +9,7 @@ import { supabase } from "../Utils/SupabaseClient";
 import AddFavorite from "./AddFavorite";
 
 const MovieDetails = ({ countryCode }) => {
-  const { id } = useParams();
+  const { type, id } = useParams();
   const [details, setDetails] = useState(null);
   const [videos, setVideos] = useState([]);
   const [crew, setCrew] = useState([]);
@@ -31,10 +31,16 @@ const MovieDetails = ({ countryCode }) => {
     },
   };
 
-  const movieApi = `https://api.themoviedb.org/3/movie/${id}`;
-  const movieVideoApi = `https://api.themoviedb.org/3/movie/${id}/videos`;
-  const movieCrewApi = `https://api.themoviedb.org/3/movie/${id}/credits`;
-  const movieWhereToWatchApi = `https://api.themoviedb.org/3/movie/${id}/watch/providers`;
+  //   const typeApi = `https://api.themoviedb.org/3/search/multi`
+
+  //   useEffect(() => {
+
+  //   })
+
+  const movieApi = `https://api.themoviedb.org/3/${type}/${id}`;
+  const movieVideoApi = `https://api.themoviedb.org/3/${type}/${id}/videos`;
+  const movieCrewApi = `https://api.themoviedb.org/3/${type}/${id}/credits`;
+  const movieWhereToWatchApi = `https://api.themoviedb.org/3/${type}/${id}/watch/providers`;
   //   const tvApi = `https://api.themoviedb.org/3/tv/${id}`;
 
   useEffect(() => {
@@ -43,7 +49,7 @@ const MovieDetails = ({ countryCode }) => {
       const data = await response.json();
       console.log(data);
 
-      setMovieIds([{ movie_id: data.id, type: "movie" }]);
+      setMovieIds([{ movie_id: data.id, type: type }]);
       setDetails(data);
     };
 
@@ -96,7 +102,6 @@ const MovieDetails = ({ countryCode }) => {
         new Map(providerLinks.map((p) => [p.provider_id, p])).values()
       );
 
-      //   setWhereToWatch(whereToWatchArray.link);
       setWatchSite(uniqueProviders);
     };
     handleWhereToWatch();
@@ -128,13 +133,11 @@ const MovieDetails = ({ countryCode }) => {
   const firstTrailer = trailers[0];
 
   const handleThumbnail = () => {
-    // setShowPlayer(firstTrailer);
     setIsOpen(true);
     console.log("In handle");
   };
 
   const handleClose = () => {
-    // setShowPlayer(null);
     setIsOpen(false);
   };
 
@@ -146,13 +149,12 @@ const MovieDetails = ({ countryCode }) => {
     });
 
     const fetchUser = async () => {
-      // setIsLoading(true);
       const {
         data: { user },
       } = await supabase.auth.getUser();
       console.log(user.id, details.id, newHeartState);
-      // const userId = user.id;
-      await AddFavorite(user.id, details.id, "movie", newHeartState);
+
+      await AddFavorite(user.id, details.id, type, newHeartState);
     };
     fetchUser();
   };

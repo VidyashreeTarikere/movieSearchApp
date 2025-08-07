@@ -22,12 +22,10 @@ const MovieGrid = ({ movie }) => {
     });
 
     const fetchUser = async () => {
-      // setIsLoading(true);
       const {
         data: { user },
       } = await supabase.auth.getUser();
       console.log(user.id, movie.id, newHeartState);
-      // const userId = user.id;
       await AddFavorite(user.id, movie.id, movie.media_type, newHeartState);
     };
     fetchUser();
@@ -57,7 +55,7 @@ const MovieGrid = ({ movie }) => {
   }, [movie.id]);
 
   const handleMovieDetails = () => {
-    navigate(`/details/${movie.id}`);
+    navigate(`/details/${movie.media_type}/${movie.id}`);
   };
 
   const SkeletonCard = () => (
