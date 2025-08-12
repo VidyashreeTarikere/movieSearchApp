@@ -37,7 +37,7 @@ export default function App() {
     );
   } else {
     return (
-      <div className="w-full flex flex-col min-h-screen justify-between">
+      <div className="w-full flex flex-col min-h-screen justify-between bg-[#040720] text-white">
         <div className="sticky top-0 z-50 bg-white shadow-sm">
           <Header
             supabase={supabase}

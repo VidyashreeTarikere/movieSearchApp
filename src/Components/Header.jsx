@@ -60,26 +60,42 @@ const Header = ({ supabase, setExploreType, setExplore, setCountryCode }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between px-6 py-4 gap-6 w-full">
-        {/* Logo links to Home */}
+      <div className="flex items-center justify-between px-6 py-4 w-full text-[#E0E0E0] bg-[#040720]">
         <Link to="/" className="flex items-center gap-6">
-          <img
-            src={AppLogo}
-            alt="CineAI Logo"
-            style={{ width: "200px" }}
+          <div
             onClick={handleLogoClick}
-          />
+            role="button"
+            tabIndex={0}
+            className="inline-flex items-center cursor-pointer group select-none font-montserrat font-semibold text-4xl "
+            aria-label="ShowCase Logo"
+          >
+            <span className="text-[#2978FF] group-hover:text-gray-500">Sh</span>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="mx-1 w-6 h-6 fill-[#FF6B6B] group-hover:text-gray-500"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <polygon points="6,4 20,12 6,20" />
+            </svg>
+
+            <span className="text-[#2978FF] group-hover:text-gray-500">w</span>
+
+            <span className="text-[#FF6B6B] group-hover:text-gray-500 font-normal">
+              Case
+            </span>
+          </div>
         </Link>
 
-        {/* Navigation Links */}
-        <nav className="flex items-center gap-6 text-lg font-medium">
+        <nav className="flex gap-40">
           <Link
             to="/shows"
             onClick={() => {
               setExplore(false);
               setExploreType(null);
             }}
-            className="hover:underline"
+            className="hover:text-blue-500 text-3xl"
           >
             Shows
           </Link>
@@ -90,7 +106,7 @@ const Header = ({ supabase, setExploreType, setExplore, setCountryCode }) => {
               setExplore(false);
               setExploreType(null);
             }}
-            className="hover:underline"
+            className="hover:text-blue-500 text-3xl"
           >
             Movies
           </Link>
@@ -101,13 +117,13 @@ const Header = ({ supabase, setExploreType, setExplore, setCountryCode }) => {
               setExplore(false);
               setExploreType(null);
             }}
-            className="hover:underline"
+            className="hover:text-blue-500 text-3xl"
           >
             MyList
           </Link>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 text-2xl">
           <Avatar supabase={supabase} />
         </div>
       </div>

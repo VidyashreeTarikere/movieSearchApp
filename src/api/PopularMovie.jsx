@@ -1,5 +1,3 @@
-// import React, { useState } from "react";
-
 import { useEffect, useState } from "react";
 import MovieGrid from "../Components/MovieGrid";
 
@@ -69,7 +67,7 @@ const PopularMovie = ({ explore }) => {
     <>
       {!explore ? (
         <div className="flex-col w-full overflow-hidden inline-flex flex-nowrap">
-          <h1>Popular Movies</h1>
+          <h1 className="text-2xl font-bold m-4">Popular Movies</h1>
           <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none  animate-infinite-scroll">
             {famousMovie.map((movie) => (
               <li key={movie.id}>
@@ -80,7 +78,7 @@ const PopularMovie = ({ explore }) => {
             ))}
           </ul>
 
-          <h1>Popular TV Shows</h1>
+          <h1 className="text-2xl font-bold m-4">Popular TV Shows</h1>
           <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-reverse-scroll">
             {famousTV.map((tv) => (
               <li key={tv.id}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import MovieGrid from "../Components/MovieGrid";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -38,26 +38,34 @@ const MyList = ({ movieIds, explore }) => {
   }, [explore, movieIds]);
 
   const LeftArrow = () => {
-    const { scrollPrev } = React.useContext(VisibilityContext);
+    const { scrollPrev } = useContext(VisibilityContext);
     return (
-      <button
-        className="p-5 bg-white rounded-full shadow"
-        onClick={() => scrollPrev()}
-      >
-        <FaChevronLeft />
-      </button>
+      <>
+        <div className="flex items-center">
+          <button
+            className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
+            onClick={() => scrollPrev()}
+          >
+            <FaChevronLeft />
+          </button>
+        </div>
+      </>
     );
   };
 
   const RightArrow = () => {
-    const { scrollNext } = React.useContext(VisibilityContext);
+    const { scrollNext } = useContext(VisibilityContext);
     return (
-      <button
-        className="p-5 bg-white rounded-full shadow"
-        onClick={() => scrollNext()}
-      >
-        <FaChevronRight />
-      </button>
+      <>
+        <div className="flex items-center">
+          <button
+            className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
+            onClick={() => scrollNext()}
+          >
+            <FaChevronRight />
+          </button>
+        </div>
+      </>
     );
   };
 
@@ -68,7 +76,7 @@ const MyList = ({ movieIds, explore }) => {
           <h1 className="text-2xl font-bold m-4">Your Favorites</h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {getList.map((movie) => (
-              <div key={movie.id} className="mx-2">
+              <div key={movie.id} className="mx-4">
                 <MovieGrid movie={movie} />
               </div>
             ))}

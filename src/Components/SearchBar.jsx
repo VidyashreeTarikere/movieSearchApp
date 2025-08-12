@@ -53,12 +53,15 @@ const Search = ({ exploreType, setExploreType, explore, setExplore }) => {
 
   return (
     <>
-      <div>
-        <form className="flex items-center" onSubmit={handleSubmit}>
+      <div className="pt-5">
+        <form
+          className="flex items-center justify-center"
+          onSubmit={handleSubmit}
+        >
           <label htmlFor="search" className="sr-only">
             Search
           </label>
-          <div className="relative">
+          <div className="relative w-full items-center">
             <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
               <svg
                 className="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -79,7 +82,7 @@ const Search = ({ exploreType, setExploreType, explore, setExplore }) => {
               id="search"
               value={search}
               onInput={handleSearch}
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5"
+              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-500 focus:border-gray-500 block w-full pl-10 p-2.5"
               placeholder="Search Movies or TV shows"
               required
             />
@@ -87,7 +90,7 @@ const Search = ({ exploreType, setExploreType, explore, setExplore }) => {
 
           <button
             type="submit"
-            className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-gray-500 rounded-lg border border-gray-500 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
           >
             <svg
               className="mr-2 -ml-1 w-5 h-5"

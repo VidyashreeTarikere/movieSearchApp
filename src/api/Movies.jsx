@@ -24,24 +24,32 @@ const MoviesPage = ({ explore }) => {
   const LeftArrow = () => {
     const { scrollPrev } = useContext(VisibilityContext);
     return (
-      <button
-        className="p-5 bg-white rounded-full shadow"
-        onClick={() => scrollPrev()}
-      >
-        <FaChevronLeft />
-      </button>
+      <>
+        <div className="flex items-center">
+          <button
+            className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
+            onClick={() => scrollPrev()}
+          >
+            <FaChevronLeft />
+          </button>
+        </div>
+      </>
     );
   };
 
   const RightArrow = () => {
     const { scrollNext } = useContext(VisibilityContext);
     return (
-      <button
-        className="p-5 bg-white rounded-full shadow"
-        onClick={() => scrollNext()}
-      >
-        <FaChevronRight />
-      </button>
+      <>
+        <div className="flex items-center">
+          <button
+            className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
+            onClick={() => scrollNext()}
+          >
+            <FaChevronRight />
+          </button>
+        </div>
+      </>
     );
   };
 
@@ -95,7 +103,7 @@ const MoviesPage = ({ explore }) => {
           <h1 className="text-2xl font-bold m-4">Trending Movies</h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {trendingMovies.map((movie) => (
-              <div key={movie.id} className="mx-2">
+              <div key={movie.id} className="mx-4">
                 <MovieGrid movie={movie} />
               </div>
             ))}
@@ -104,7 +112,7 @@ const MoviesPage = ({ explore }) => {
           <h1 className="text-2xl font-bold m-4">Upcoming Movies</h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {upcomingMovies.map((movie) => (
-              <div key={movie.id} className="mx-2">
+              <div key={movie.id} className="mx-4">
                 <MovieGrid movie={movie} />
               </div>
             ))}

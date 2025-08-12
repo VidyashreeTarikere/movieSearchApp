@@ -59,16 +59,16 @@ const MovieGrid = ({ movie }) => {
   };
 
   const SkeletonCard = () => (
-    <div className="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96 animate-pulse">
-      <div className="relative h-56 m-2.5 overflow-hidden bg-gray-200 rounded-md"></div>
+    <div className="relative flex flex-col my-6  shadow-sm border border-gray-700 rounded-lg w-96 animate-pulse">
+      <div className="relative h-56 m-2.5 overflow-hidden bg-gray-500 rounded-md"></div>
       <div className="p-4">
-        <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-        <div className="h-4 bg-gray-200 rounded w-full mb-1"></div>
-        <div className="h-4 bg-gray-200 rounded w-5/6 mb-1"></div>
-        <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+        <div className="h-6 bg-gray-500 rounded w-3/4 mb-2"></div>
+        <div className="h-4 bg-gray-500 rounded w-full mb-1"></div>
+        <div className="h-4 bg-gray-500 rounded w-5/6 mb-1"></div>
+        <div className="h-4 bg-gray-500 rounded w-2/3"></div>
       </div>
       <div className="px-4 pb-4 pt-0 mt-2">
-        <div className="h-8 w-24 bg-gray-200 rounded"></div>
+        <div className="h-8 w-24 bg-gray-500 rounded"></div>
       </div>
     </div>
   );
@@ -78,7 +78,7 @@ const MovieGrid = ({ movie }) => {
       {isLoading ? (
         <SkeletonCard />
       ) : (
-        <div className="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-96">
+        <div className="relative flex flex-col my-6  shadow-sm border border-slate-200 rounded-lg w-96">
           <div className="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
             {movie.backdrop_path ? (
               <img
@@ -91,10 +91,10 @@ const MovieGrid = ({ movie }) => {
             )}
           </div>
           <div className="p-4">
-            <h6 className="mb-2 text-slate-800 text-xl font-semibold overflow-y-scroll h-10">
+            <h6 className="mb-2 text-white text-xl font-semibold overflow-y-scroll h-10">
               {movie.title || movie.name}
             </h6>
-            <p className="text-slate-600 leading-normal font-light overflow-y-scroll h-20">
+            <p className="text-white leading-normal font-light overflow-y-scroll h-20">
               {movie.overview}
             </p>
           </div>
@@ -115,7 +115,12 @@ const MovieGrid = ({ movie }) => {
             </button>
           </div>
 
-          <button onClick={handleMovieDetails}>Movie Details</button>
+          <button
+            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 mb-4 mr-10 ml-10 rounded"
+            onClick={handleMovieDetails}
+          >
+            Details
+          </button>
         </div>
       )}
     </>

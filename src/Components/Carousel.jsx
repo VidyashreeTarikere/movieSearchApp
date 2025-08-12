@@ -58,17 +58,17 @@ const Carousel = () => {
       >
         {swiperMovies.map((movie) => (
           <SwiperSlide key={movie.id}>
-            <div className="flex flex-col items-center justify-center">
+            <div className="relative w-full h-[500px] bg-[#040720] rounded">
               <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
                 alt="Movie poster"
-                className=""
+                className="w-full h-full object-contain"
               />
               <button
                 onClick={() => navigate(`/details/movie/${movie.id}`)}
-                className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+                className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-gray-500 text-white rounded"
               >
-                Movie Details
+                Details
               </button>
             </div>
           </SwiperSlide>

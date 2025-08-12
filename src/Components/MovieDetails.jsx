@@ -179,12 +179,18 @@ const MovieDetails = ({ countryCode }) => {
       ) : (
         <>
           <div>
-            <div>
-              <button onClick={() => history(-1)}>Back</button>
+            <div className="pl-5 pr-5">
+              <button
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+                onClick={() => history(-1)}
+              >
+                Back
+              </button>
             </div>
             <img
               src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
               alt="Movie poster"
+              className="w-screen h-screen object-contain"
             />
             <img
               src={`https://image.tmdb.org/t/p/w500${details.backdrop_path}`}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { Fragment } from "react";
@@ -75,51 +75,59 @@ const TVFilter = ({ exploreType, setExploreType, explore, setExplore }) => {
   };
 
   const LeftArrow = () => {
-    const { scrollPrev } = React.useContext(VisibilityContext);
+    const { scrollPrev } = useContext(VisibilityContext);
     return (
-      <button
-        className="p-2 bg-white rounded-full shadow"
-        onClick={() => scrollPrev()}
-      >
-        <FaChevronLeft />
-      </button>
+      <>
+        <div className="flex items-center">
+          <button
+            className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
+            onClick={() => scrollPrev()}
+          >
+            <FaChevronLeft />
+          </button>
+        </div>
+      </>
     );
   };
 
   const RightArrow = () => {
-    const { scrollNext } = React.useContext(VisibilityContext);
+    const { scrollNext } = useContext(VisibilityContext);
     return (
-      <button
-        className="p-2 bg-white rounded-full shadow"
-        onClick={() => scrollNext()}
-      >
-        <FaChevronRight />
-      </button>
+      <>
+        <div className="flex items-center">
+          <button
+            className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
+            onClick={() => scrollNext()}
+          >
+            <FaChevronRight />
+          </button>
+        </div>
+      </>
     );
   };
 
   return (
     <>
-      <div>
-        <Menu className="relative inline-block text-left">
+      <div className="flex justify-end pr-5">
+        <Menu className="relative inline-block text-right">
           <div>
             <MenuButton as={Fragment}>
               {({ active }) => (
                 <button
                   onClick={handleGenre}
                   className={clsx(
-                    active &&
-                      "inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50"
+                    "bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded",
+                    active && "bg-gray hover:bg-gray-50 text-gray-900"
                   )}
                 >
-                  TV Genre
+                  Genre
                 </button>
               )}
             </MenuButton>
 
             <MenuItems
               transition
-              className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
+              className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-gray-500 shadow-lg ring-1 ring-black/5 transition focus:outline-hidden data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
             >
               <div className="py-1">
                 {/* <form action="#" method="POST"> */}
@@ -133,7 +141,7 @@ const TVFilter = ({ exploreType, setExploreType, explore, setExplore }) => {
                           close();
                         }}
                         value={genre.id}
-                        className="block w-full px-4 py-2 text-left text-sm text-gray-700 data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
+                        className="block w-full px-4 py-2 text-left text-sm text-white data-focus:bg-gray-100 data-focus:text-gray-900 data-focus:outline-hidden"
                       >
                         {genre.name}
                       </button>
@@ -160,7 +168,7 @@ const TVFilter = ({ exploreType, setExploreType, explore, setExplore }) => {
           </h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {searchArray.map((movie) => (
-              <div key={movie.id} className="mx-2">
+              <div key={movie.id} className="mx-4">
                 <MovieGrid movie={movie} />
               </div>
             ))}

@@ -8,10 +8,15 @@ const TVsPage = ({ exploreType, setExploreType, explore, setExplore }) => {
   const history = useNavigate();
   return (
     <div>
-      <div>
-        <button onClick={() => history(-1)}>Back</button>
+      <div className="pl-5 pr-5">
+        <button
+          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+          onClick={() => history(-1)}
+        >
+          Back
+        </button>
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row items-center justify-center">
         <div className="relative w-1/2">
           <Search
             exploreType={exploreType}
@@ -22,7 +27,7 @@ const TVsPage = ({ exploreType, setExploreType, explore, setExplore }) => {
         </div>
       </div>
 
-      <div className="pl-30">
+      <div className="">
         <TVFilter
           exploreType={exploreType}
           setExploreType={setExploreType}

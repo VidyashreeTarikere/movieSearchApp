@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import MovieGrid from "./MovieGrid";
 import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -44,26 +44,34 @@ const Recommendations = ({ movieIds }) => {
   }, [movieIds]);
 
   const LeftArrow = () => {
-    const { scrollPrev } = React.useContext(VisibilityContext);
+    const { scrollPrev } = useContext(VisibilityContext);
     return (
-      <button
-        className="p-5 bg-white rounded-full shadow"
-        onClick={() => scrollPrev()}
-      >
-        <FaChevronLeft />
-      </button>
+      <>
+        <div className="flex items-center">
+          <button
+            className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
+            onClick={() => scrollPrev()}
+          >
+            <FaChevronLeft />
+          </button>
+        </div>
+      </>
     );
   };
 
   const RightArrow = () => {
-    const { scrollNext } = React.useContext(VisibilityContext);
+    const { scrollNext } = useContext(VisibilityContext);
     return (
-      <button
-        className="p-5 bg-white rounded-full shadow"
-        onClick={() => scrollNext()}
-      >
-        <FaChevronRight />
-      </button>
+      <>
+        <div className="flex items-center">
+          <button
+            className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
+            onClick={() => scrollNext()}
+          >
+            <FaChevronRight />
+          </button>
+        </div>
+      </>
     );
   };
 
@@ -79,7 +87,7 @@ const Recommendations = ({ movieIds }) => {
         <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
           {recommendations.flatMap((recGroup) =>
             recGroup.results.map((movie) => (
-              <div key={`${recGroup.sourceId}-${movie.id}`} className="mx-2">
+              <div key={`${recGroup.sourceId}-${movie.id}`} className="mx-4">
                 <MovieGrid movie={movie} />
               </div>
             ))
