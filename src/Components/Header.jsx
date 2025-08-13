@@ -1,5 +1,4 @@
 // import React, { useState } from "react";
-import AppLogo from "../assets/default.svg";
 import Avatar from "./Avatar";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";

@@ -2,7 +2,6 @@ import React from "react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import Background from "../assets/CineAIbg.jpg";
-import AppLogo from "../assets/default.svg";
 
 const SignIn = ({ supabase }) => {
   return (
@@ -14,11 +13,11 @@ const SignIn = ({ supabase }) => {
           alignItems: "center",
         }}
       >
-        <img
+        {/* <img
           src={AppLogo}
           alt="CineAI Logo"
           style={{ width: "300px", height: "auto", marginBottom: "2rem" }}
-        />
+        /> */}
 
         <div style={{ width: "100%", maxWidth: "400px" }}>
           <Auth
