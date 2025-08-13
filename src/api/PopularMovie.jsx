@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import MovieGrid from "../Components/MovieGrid";
 
-const PopularMovie = ({ explore }) => {
+const PopularMovie = ({ explore, countryCode }) => {
   const [famousMovie, setFamousMovie] = useState([]);
   const [famousTV, setFamousTV] = useState([]);
+  const [moviesRegion, setMoviesRegion] = useState([]);
+  const [tvRegion, setTvRegion] = useState([]);
 
   const apiMovie = `https://api.themoviedb.org/3/movie/popular`;
   const apiTV = `https://api.themoviedb.org/3/tv/popular`;
+  const moviesInYourRegionApi = `https://api.themoviedb.org/3/discover/movie?watch_region=${countryCode}`;
+  const tvInYourRegionApi = `https://api.themoviedb.org/3/discover/tv?watch_region=${countryCode}`;
 
   const options = {
     method: "GET",
@@ -18,47 +22,29 @@ const PopularMovie = ({ explore }) => {
 
   useEffect(() => {
     if (!explore) {
-      const handlePopularMovies = async () => {
-        const response = await fetch(apiMovie, options);
+      const fetchAndSet = async (url, mediaType, setter) => {
+        const response = await fetch(url, options);
         const data = await response.json();
 
-        let famousMovieArray = [];
-
+        let items = [];
         if (Array.isArray(data.results)) {
-          famousMovieArray = data.results;
-        } else if (typeof data.results === "object") {
-          famousMovieArray = Object.values(data.results);
+          items = data.results;
+        } else if (typeof data.results === "object" && data.results !== null) {
+          items = Object.values(data.results);
         }
-        // console.log(famousMovieArray);
-        setFamousMovie(
-          famousMovieArray.map((item) => ({
+
+        setter(
+          items.map((item) => ({
             ...item,
-            media_type: "movie",
+            media_type: mediaType,
           }))
         );
       };
 
-      const handlePopularTV = async () => {
-        const response = await fetch(apiTV, options);
-        const data = await response.json();
-
-        let famousTVArray = [];
-
-        if (Array.isArray(data.results)) {
-          famousTVArray = data.results;
-        } else if (typeof data.results === "object") {
-          famousTVArray = Object.values(data.results);
-        }
-        console.log(famousTVArray);
-        setFamousTV(
-          famousTVArray.map((item) => ({
-            ...item,
-            media_type: "tv",
-          }))
-        );
-      };
-      handlePopularMovies();
-      handlePopularTV();
+      fetchAndSet(apiMovie, "movie", setFamousMovie);
+      fetchAndSet(apiTV, "tv", setFamousTV);
+      fetchAndSet(moviesInYourRegionApi, "movie", setMoviesRegion);
+      fetchAndSet(tvInYourRegionApi, "tv", setTvRegion);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [explore]);
@@ -81,6 +67,28 @@ const PopularMovie = ({ explore }) => {
           <h1 className="text-2xl font-bold m-4">Popular TV Shows</h1>
           <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-reverse-scroll">
             {famousTV.map((tv) => (
+              <li key={tv.id}>
+                <div className="hover:scale-110 transition-transform duration-300">
+                  <MovieGrid movie={tv} />
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <h1 className="text-2xl font-bold m-4">Movies in {countryCode}</h1>
+          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-reverse-scroll">
+            {moviesRegion.map((tv) => (
+              <li key={tv.id}>
+                <div className="hover:scale-110 transition-transform duration-300">
+                  <MovieGrid movie={tv} />
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <h1 className="text-2xl font-bold m-4">TV shows in {countryCode}</h1>
+          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-reverse-scroll">
+            {tvRegion.map((tv) => (
               <li key={tv.id}>
                 <div className="hover:scale-110 transition-transform duration-300">
                   <MovieGrid movie={tv} />

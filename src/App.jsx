@@ -58,6 +58,7 @@ export default function App() {
                     setExploreType={setExploreType}
                     explore={explore}
                     setExplore={setExplore}
+                    countryCode={countryCode}
                   />
                 }
               />

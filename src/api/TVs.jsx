@@ -8,8 +8,10 @@ const TVs = ({ explore }) => {
   const [trendingTV, setTrendingTV] = useState([]);
   const [onAirTV, setOnAirTV] = useState([]);
 
+  // const topRatedApi = `https://api.themoviedb.org/3/tv/top_rated?`
   const trendingTVApi = `https://api.themoviedb.org/3/trending/tv/day?`;
   const onAirTVApi = `https://api.themoviedb.org/3/tv/on_the_air`;
+  // const latestApi = `https://api.themoviedb.org/3/tv/latest`
 
   const options = {
     method: "GET",

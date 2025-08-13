@@ -15,11 +15,16 @@ const MoviesPage = ({ explore }) => {
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   };
+
+  // const nowPlayingApi = `https://api.themoviedb.org/3/movie/now_playing?`
+
   // trending movies
   const trendingApi = `https://api.themoviedb.org/3/trending/movie/day?`;
 
   //Upcoming movies
   const upcomingApi = `https://api.themoviedb.org/3/movie/upcoming`;
+
+  // const topRatedApi = `https://api.themoviedb.org/3/movie/top_rated?`;
 
   const LeftArrow = () => {
     const { scrollPrev } = useContext(VisibilityContext);
