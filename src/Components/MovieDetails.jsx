@@ -315,7 +315,7 @@ const MovieDetails = ({ countryCode }) => {
                 </div>
               ) : (
                 <p className="text-gray-400 text-lg">
-                  Not available for streaming.
+                  Not available for streaming in your region.
                 </p>
               )}
             </div>
