@@ -15,15 +15,13 @@ const MyListPage = ({ exploreType, setExploreType, explore, setExplore }) => {
           Back
         </button>
       </div>
-      <div className="flex flex-row items-center justify-center">
-        <div className="relative w-1/2">
-          <Search
-            exploreType={exploreType}
-            setExploreType={setExploreType}
-            explore={explore}
-            setExplore={setExplore}
-          />
-        </div>
+      <div>
+        <Search
+          exploreType={exploreType}
+          setExploreType={setExploreType}
+          explore={explore}
+          setExplore={setExplore}
+        />
       </div>
       <div>
         <GetMyList explore={explore} />

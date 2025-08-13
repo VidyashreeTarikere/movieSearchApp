@@ -8,15 +8,13 @@ const Home = ({ exploreType, setExploreType, explore, setExplore }) => {
   return (
     <div>
       <Carousel />
-      <div className="flex flex-row items-center justify-center">
-        <div className="relative w-1/2 pt-5">
-          <Search
-            exploreType={exploreType}
-            setExploreType={setExploreType}
-            explore={explore}
-            setExplore={setExplore}
-          />
-        </div>
+      <div>
+        <Search
+          exploreType={exploreType}
+          setExploreType={setExploreType}
+          explore={explore}
+          setExplore={setExplore}
+        />
       </div>
 
       <div>
