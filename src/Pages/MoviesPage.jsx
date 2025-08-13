@@ -11,7 +11,7 @@ const Movies = ({ exploreType, setExploreType, explore, setExplore }) => {
     <div>
       <div className="pl-5 pr-5">
         <button
-          className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded cursor-pointer"
+          className="bg-gray-500 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded-lg cursor-pointer"
           onClick={() => history(-1)}
         >
           Back
@@ -25,7 +25,7 @@ const Movies = ({ exploreType, setExploreType, explore, setExplore }) => {
           setExplore={setExplore}
         />
       </div>
-      <div className="">
+      <div className="mt-5">
         <MovieFilter
           exploreType={exploreType}
           setExploreType={setExploreType}

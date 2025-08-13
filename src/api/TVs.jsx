@@ -23,7 +23,7 @@ const TVs = ({ explore }) => {
     const { scrollPrev } = useContext(VisibilityContext);
     return (
       <>
-        <div className="flex items-center">
+        <div className="hidden lg:flex lg:items-center md:flex md:items-center xl:flex xl:items-center">
           <button
             className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
             onClick={() => scrollPrev()}
@@ -39,7 +39,7 @@ const TVs = ({ explore }) => {
     const { scrollNext } = useContext(VisibilityContext);
     return (
       <>
-        <div className="flex items-center">
+        <div className="hidden lg:flex lg:items-center md:flex md:items-center xl:flex xl:items-center">
           <button
             className="p-5 h-30 bg-gray-300 rounded-full shadow flex items-center justify-center"
             onClick={() => scrollNext()}

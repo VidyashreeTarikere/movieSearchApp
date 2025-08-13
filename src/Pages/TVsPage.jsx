@@ -25,7 +25,7 @@ const TVsPage = ({ exploreType, setExploreType, explore, setExplore }) => {
         />
       </div>
 
-      <div>
+      <div className="mt-5">
         <TVFilter
           exploreType={exploreType}
           setExploreType={setExploreType}

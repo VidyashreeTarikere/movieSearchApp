@@ -59,7 +59,7 @@ const MovieGrid = ({ movie }) => {
   };
 
   const SkeletonCard = () => (
-    <div className="relative flex flex-col my-6  shadow-sm border border-gray-700 rounded-lg w-96 animate-pulse">
+    <div className="relative flex flex-col my-6  shadow-sm border border-gray-700 rounded-lg w-80 md:w-96 lg:w-96 xl:w-96 animate-pulse">
       <div className="relative h-56 m-2.5 overflow-hidden bg-gray-500 rounded-md"></div>
       <div className="p-4">
         <div className="h-6 bg-gray-500 rounded w-3/4 mb-2"></div>
@@ -78,7 +78,7 @@ const MovieGrid = ({ movie }) => {
       {isLoading ? (
         <SkeletonCard />
       ) : (
-        <div className="relative flex flex-col my-6  shadow-sm border border-slate-200 rounded-lg w-96">
+        <div className="relative flex flex-col my-6  shadow-sm border border-slate-200 rounded-lg w-80 md:w-96 lg:w-96 xl:w-96">
           <div className="relative h-56 m-2.5 overflow-hidden text-white rounded-md">
             {movie.backdrop_path ? (
               <img
