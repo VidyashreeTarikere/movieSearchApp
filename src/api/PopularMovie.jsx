@@ -76,7 +76,7 @@ const PopularMovie = ({ explore, countryCode }) => {
           </ul>
 
           <h1 className="text-2xl font-bold m-4">Movies in {countryCode}</h1>
-          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-reverse-scroll">
+          <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
             {moviesRegion.map((tv) => (
               <li key={tv.id}>
                 <div className="hover:scale-110 transition-transform duration-300">

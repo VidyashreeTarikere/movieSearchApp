@@ -7,6 +7,8 @@ import "react-horizontal-scrolling-menu/dist/styles.css";
 const MoviesPage = ({ explore }) => {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [upcomingMovies, setUpcomingMovies] = useState([]);
+  const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
+  const [topRatedMovies, setTopRatedMovies] = useState([]);
 
   const options = {
     method: "GET",
@@ -16,15 +18,10 @@ const MoviesPage = ({ explore }) => {
     },
   };
 
-  // const nowPlayingApi = `https://api.themoviedb.org/3/movie/now_playing?`
-
-  // trending movies
+  const nowPlayingApi = `https://api.themoviedb.org/3/movie/now_playing?`;
   const trendingApi = `https://api.themoviedb.org/3/trending/movie/day?`;
-
-  //Upcoming movies
   const upcomingApi = `https://api.themoviedb.org/3/movie/upcoming`;
-
-  // const topRatedApi = `https://api.themoviedb.org/3/movie/top_rated?`;
+  const topRatedApi = `https://api.themoviedb.org/3/movie/top_rated?`;
 
   const LeftArrow = () => {
     const { scrollPrev } = useContext(VisibilityContext);
@@ -60,44 +57,30 @@ const MoviesPage = ({ explore }) => {
 
   useEffect(() => {
     if (!explore) {
-      const handleTrendingMovies = async () => {
-        const response = await fetch(trendingApi, options);
+      const fetchAndSet = async (url, setter, mediaType = null) => {
+        const response = await fetch(url, options);
         const data = await response.json();
 
-        let trendingMoviesArray = [];
-
+        let items = [];
         if (Array.isArray(data.results)) {
-          trendingMoviesArray = data.results;
-        } else if (typeof data.results === "object") {
-          trendingMoviesArray = Object.values(data.results);
+          items = data.results;
+        } else if (typeof data.results === "object" && data.results !== null) {
+          items = Object.values(data.results);
         }
 
-        setTrendingMovies(trendingMoviesArray);
+        const processedItems = mediaType
+          ? items.map((item) => ({ ...item, media_type: mediaType }))
+          : items;
+
+        setter(processedItems);
       };
 
-      const handleUpcomingMovies = async () => {
-        const response = await fetch(upcomingApi, options);
-        const data = await response.json();
-
-        let upcomingMoviesArray = [];
-
-        if (Array.isArray(data.results)) {
-          upcomingMoviesArray = data.results;
-        } else if (typeof data.results === "object") {
-          upcomingMoviesArray = Object.values(data.results);
-        }
-
-        setUpcomingMovies(
-          upcomingMoviesArray.map((item) => ({
-            ...item,
-            media_type: "movie",
-          }))
-        );
-      };
-
-      handleTrendingMovies();
-      handleUpcomingMovies();
+      fetchAndSet(nowPlayingApi, setNowPlayingMovies);
+      fetchAndSet(trendingApi, setTrendingMovies);
+      fetchAndSet(upcomingApi, setUpcomingMovies, "movie");
+      fetchAndSet(topRatedApi, setTopRatedMovies);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [explore]);
 
@@ -105,6 +88,15 @@ const MoviesPage = ({ explore }) => {
     <>
       {!explore ? (
         <div className="flex-col w-full overflow-hidden inline-flex flex-nowrap">
+          <h1 className="text-2xl font-bold m-4">Now Playing</h1>
+          <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
+            {nowPlayingMovies.map((movie) => (
+              <div key={movie.id} className="mx-4">
+                <MovieGrid movie={movie} />
+              </div>
+            ))}
+          </ScrollMenu>
+
           <h1 className="text-2xl font-bold m-4">Trending Movies</h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {trendingMovies.map((movie) => (
@@ -117,6 +109,15 @@ const MoviesPage = ({ explore }) => {
           <h1 className="text-2xl font-bold m-4">Upcoming Movies</h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {upcomingMovies.map((movie) => (
+              <div key={movie.id} className="mx-4">
+                <MovieGrid movie={movie} />
+              </div>
+            ))}
+          </ScrollMenu>
+
+          <h1 className="text-2xl font-bold m-4">Top Rated Movies</h1>
+          <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
+            {topRatedMovies.map((movie) => (
               <div key={movie.id} className="mx-4">
                 <MovieGrid movie={movie} />
               </div>

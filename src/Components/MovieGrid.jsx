@@ -76,7 +76,9 @@ const MovieGrid = ({ movie }) => {
   return (
     <>
       {isLoading ? (
-        <SkeletonCard />
+        <>
+          <SkeletonCard />
+        </>
       ) : (
         <div className="relative flex flex-col my-6  shadow-sm border border-slate-200 rounded-lg w-80 md:w-96 lg:w-96 xl:w-96">
           <div className="relative h-56 m-2.5 overflow-hidden text-white rounded-md">

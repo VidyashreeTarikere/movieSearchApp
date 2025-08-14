@@ -7,11 +7,11 @@ import "react-horizontal-scrolling-menu/dist/styles.css";
 const TVs = ({ explore }) => {
   const [trendingTV, setTrendingTV] = useState([]);
   const [onAirTV, setOnAirTV] = useState([]);
+  const [topRatedTV, setTopRatedTV] = useState([]);
 
-  // const topRatedApi = `https://api.themoviedb.org/3/tv/top_rated?`
+  const topRatedApi = `https://api.themoviedb.org/3/tv/top_rated?`;
   const trendingTVApi = `https://api.themoviedb.org/3/trending/tv/day?`;
   const onAirTVApi = `https://api.themoviedb.org/3/tv/on_the_air`;
-  // const latestApi = `https://api.themoviedb.org/3/tv/latest`
 
   const options = {
     method: "GET",
@@ -55,42 +55,27 @@ const TVs = ({ explore }) => {
 
   useEffect(() => {
     if (!explore) {
-      const handleTrendingTV = async () => {
-        const response = await fetch(trendingTVApi, options);
+      const fetchAndSet = async (url, setter, mediaType = null) => {
+        const response = await fetch(url, options);
         const data = await response.json();
 
-        let trendingTVArray = [];
-
+        let items = [];
         if (Array.isArray(data.results)) {
-          trendingTVArray = data.results;
-        } else if (typeof data.results === "object") {
-          trendingTVArray = Object.values(data.results);
+          items = data.results;
+        } else if (typeof data.results === "object" && data.results !== null) {
+          items = Object.values(data.results);
         }
 
-        setTrendingTV(trendingTVArray);
+        const processedItems = mediaType
+          ? items.map((item) => ({ ...item, media_type: mediaType }))
+          : items;
+
+        setter(processedItems);
       };
 
-      const handleOnAirTV = async () => {
-        const response = await fetch(onAirTVApi, options);
-        const data = await response.json();
-
-        let onAirTVArray = [];
-
-        if (Array.isArray(data.results)) {
-          onAirTVArray = data.results;
-        } else if (typeof data.results === "object") {
-          onAirTVArray = Object.values(data.results);
-        }
-
-        setOnAirTV(
-          onAirTVArray.map((item) => ({
-            ...item,
-            media_type: "tv",
-          }))
-        );
-      };
-      handleTrendingTV();
-      handleOnAirTV();
+      fetchAndSet(topRatedApi, setTopRatedTV);
+      fetchAndSet(trendingTVApi, setTrendingTV);
+      fetchAndSet(onAirTVApi, setOnAirTV, "tv");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [explore]);
@@ -99,7 +84,16 @@ const TVs = ({ explore }) => {
     <>
       {!explore ? (
         <div className="flex-col w-full overflow-hidden inline-flex flex-nowrap">
-          <h1 className="text-2xl font-bold m-4">Trending TV</h1>
+          <h1 className="text-2xl font-bold m-4">Top-Rated TV Shows</h1>
+          <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
+            {topRatedTV.map((movie) => (
+              <div key={movie.id} itemId={movie.id.toString()} className="mx-4">
+                <MovieGrid movie={movie} />
+              </div>
+            ))}
+          </ScrollMenu>
+
+          <h1 className="text-2xl font-bold m-4">Trending on TV</h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {trendingTV.map((movie) => (
               <div key={movie.id} itemId={movie.id.toString()} className="mx-4">
