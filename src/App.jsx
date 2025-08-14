@@ -4,7 +4,7 @@ import { supabase } from "./Utils/SupabaseClient";
 import SignIn from "./Pages/SignIn";
 import Header from "./Components/Header";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Footer from "./Components/Footer";
+// import Footer from "./Components/Footer";
 import Home from "./Pages/Home";
 import Movies from "./Pages/MoviesPage";
 import TVsPage from "./Pages/TVsPage";
@@ -116,9 +116,9 @@ export default function App() {
           </main>
         </div>
 
-        <div className="sticky bottom-0 z-50 bg-white shadow-sm">
+        {/* <div className="sticky bottom-0 z-50 bg-white shadow-sm">
           <Footer supabase={supabase} />
-        </div>
+        </div> */}
       </div>
     );
   }
