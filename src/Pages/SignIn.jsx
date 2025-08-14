@@ -100,6 +100,7 @@ const SignIn = ({ supabase, setExploreType, setExplore, setCountryCode }) => {
                 },
               }}
               providers={["google", "github"]}
+              redirectTo={import.meta.env.VITE_REDIRECT_URI}
             />
           </div>
         </div>
