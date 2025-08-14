@@ -25,7 +25,7 @@ const MovieGrid = ({ movie }) => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      console.log(user.id, movie.id, newHeartState);
+      // console.log(user.id, movie.id, newHeartState);
       await AddFavorite(user.id, movie.id, movie.media_type, newHeartState);
     };
     fetchUser();
@@ -43,7 +43,7 @@ const MovieGrid = ({ movie }) => {
         .select("id")
         .eq("user_id", user.id)
         .eq("movie_id", movie.id)
-        .single();
+        .maybeSingle();
 
       if (data) {
         setHeartRed({ state: true, number: "1" });

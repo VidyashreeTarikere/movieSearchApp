@@ -21,7 +21,8 @@ const TVFilter = ({ exploreType, setExploreType, explore, setExplore }) => {
   const options = {
     method: "GET",
     headers: {
-      accept: "application/json",
+      Accept: "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   };
@@ -38,8 +39,6 @@ const TVFilter = ({ exploreType, setExploreType, explore, setExplore }) => {
     }
 
     setGenresArray(parsedGenres);
-
-    console.log(parsedGenres);
   };
 
   const handleGenreSelection = async (e) => {
@@ -54,7 +53,6 @@ const TVFilter = ({ exploreType, setExploreType, explore, setExplore }) => {
       const response = await fetch(genreApi, options);
       const data = await response.json();
 
-      // console.log(data);
       let genreSearchArray = [];
 
       setSpinner(false);

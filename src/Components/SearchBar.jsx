@@ -15,7 +15,8 @@ const Search = ({ exploreType, setExploreType, explore, setExplore }) => {
   const options = {
     method: "GET",
     headers: {
-      accept: "application/json",
+      Accept: "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   };
@@ -34,7 +35,7 @@ const Search = ({ exploreType, setExploreType, explore, setExplore }) => {
       setExploreType("search");
       const response = await fetch(api, options);
       const data = await response.json();
-      console.log(data);
+
       let parsedArray = [];
 
       setSpinner(false);

@@ -12,13 +12,15 @@ const Header = ({
   session,
 }) => {
   // const [userLocation, setUserLocation] = useState(null);
-  const [lat, setLat] = useState(null);
-  const [long, setLong] = useState(null);
+  const [lat, setLat] = useState(37.0902);
+  const [long, setLong] = useState(-95.7129);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const reverseApi = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&format=json`;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,7 +62,6 @@ const Header = ({
 
   useEffect(() => {
     const getCountryCode = async () => {
-      const reverseApi = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${long}&format=json`;
       const response = await fetch(reverseApi);
       const data = await response.json();
       setCountryCode(data.address.country_code.toUpperCase());
@@ -129,32 +130,33 @@ const Header = ({
               </Link>
             </div>
 
-            <nav className="hidden lg:flex items-center space-x-8 xl:space-x-12">
-              {navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={handleNavClick}
-                  className={`relative text-lg xl:text-xl font-medium transition-all duration-300 hover:text-blue-400 ${
-                    isActivePath(item.path)
-                      ? "text-blue-500"
-                      : "text-gray-200 hover:text-blue-400"
-                  }`}
-                >
-                  {item.label}
-                  {isActivePath(item.path) && (
-                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#040720] rounded-full"></span>
-                  )}
-                </Link>
-              ))}
-            </nav>
-
             {session ? (
-              <div className="hidden lg:flex items-center space-x-4">
-                <div className="flex items-center">
-                  <Avatar supabase={supabase} />
+              <>
+                <nav className="hidden lg:flex items-center space-x-8 xl:space-x-12">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={handleNavClick}
+                      className={`relative text-lg xl:text-xl font-medium transition-all duration-300 hover:text-blue-400 ${
+                        isActivePath(item.path)
+                          ? "text-blue-500"
+                          : "text-gray-200 hover:text-blue-400"
+                      }`}
+                    >
+                      {item.label}
+                      {isActivePath(item.path) && (
+                        <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#040720] rounded-full"></span>
+                      )}
+                    </Link>
+                  ))}
+                </nav>
+                <div className="hidden lg:flex items-center space-x-4">
+                  <div className="flex items-center">
+                    <Avatar supabase={supabase} />
+                  </div>
                 </div>
-              </div>
+              </>
             ) : (
               <div></div>
             )}

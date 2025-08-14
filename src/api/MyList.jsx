@@ -10,7 +10,8 @@ const MyList = ({ movieIds, explore }) => {
   const options = {
     method: "GET",
     headers: {
-      accept: "application/json",
+      Accept: "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   };
@@ -29,7 +30,6 @@ const MyList = ({ movieIds, explore }) => {
           })
         );
 
-        console.log(data);
         setGetList(data);
       };
       handleGetList();

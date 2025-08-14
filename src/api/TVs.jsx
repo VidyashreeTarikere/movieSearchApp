@@ -16,7 +16,8 @@ const TVs = ({ explore }) => {
   const options = {
     method: "GET",
     headers: {
-      accept: "application/json",
+      Accept: "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   };
@@ -73,8 +74,8 @@ const TVs = ({ explore }) => {
         setter(processedItems);
       };
 
-      fetchAndSet(topRatedApi, setTopRatedTV);
-      fetchAndSet(trendingTVApi, setTrendingTV);
+      fetchAndSet(topRatedApi, setTopRatedTV, "tv");
+      fetchAndSet(trendingTVApi, setTrendingTV, "tv");
       fetchAndSet(onAirTVApi, setOnAirTV, "tv");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,7 +88,7 @@ const TVs = ({ explore }) => {
           <h1 className="text-2xl font-bold m-4">Top-Rated TV Shows</h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {topRatedTV.map((movie) => (
-              <div key={movie.id} itemId={movie.id.toString()} className="mx-4">
+              <div key={movie.id} itemID={movie.id.toString()} className="mx-4">
                 <MovieGrid movie={movie} />
               </div>
             ))}
@@ -96,7 +97,7 @@ const TVs = ({ explore }) => {
           <h1 className="text-2xl font-bold m-4">Trending on TV</h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {trendingTV.map((movie) => (
-              <div key={movie.id} itemId={movie.id.toString()} className="mx-4">
+              <div key={movie.id} itemID={movie.id.toString()} className="mx-4">
                 <MovieGrid movie={movie} />
               </div>
             ))}
@@ -105,7 +106,7 @@ const TVs = ({ explore }) => {
           <h1 className="text-2xl font-bold m-4">On Air TV</h1>
           <ScrollMenu LeftArrow={<LeftArrow />} RightArrow={<RightArrow />}>
             {onAirTV.map((movie) => (
-              <div key={movie.id} itemId={movie.id.toString()} className="mx-4">
+              <div key={movie.id} itemID={movie.id.toString()} className="mx-4">
                 <MovieGrid movie={movie} />
               </div>
             ))}

@@ -24,7 +24,6 @@ const Avatar = ({ supabase }) => {
       if (error) {
         console.log(error.message);
       } else {
-        // console.log(user);
         setEmail(user.user_metadata.email);
         setID(user.id);
         setPic(user.user_metadata.avatar_url);

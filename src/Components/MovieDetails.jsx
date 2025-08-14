@@ -26,7 +26,8 @@ const MovieDetails = ({ countryCode }) => {
   const options = {
     method: "GET",
     headers: {
-      accept: "application/json",
+      Accept: "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   };
@@ -40,7 +41,6 @@ const MovieDetails = ({ countryCode }) => {
     const handleDisplayDetails = async () => {
       const response = await fetch(movieApi, options);
       const data = await response.json();
-      console.log(data);
 
       setMovieIds([{ movie_id: data.id, type: type }]);
       setDetails(data);
@@ -64,7 +64,6 @@ const MovieDetails = ({ countryCode }) => {
     const handleGetCrew = async () => {
       const response = await fetch(movieCrewApi, options);
       const data = await response.json();
-      console.log(data.cast);
 
       setCrew(data.cast);
     };
@@ -81,15 +80,14 @@ const MovieDetails = ({ countryCode }) => {
       const response = await fetch(movieWhereToWatchApi, options);
       const data = await response.json();
 
-      console.log(data.results);
+      // console.log(data.results);
 
       const whereToWatchArray = data.results[countryCode];
-      console.log(whereToWatchArray);
 
       const providerLinks = [
-        ...(whereToWatchArray.flatrate || []),
-        ...(whereToWatchArray.buy || []),
-        ...(whereToWatchArray.rent || []),
+        ...(whereToWatchArray?.flatrate || []),
+        ...(whereToWatchArray?.buy || []),
+        ...(whereToWatchArray?.rent || []),
       ];
       const uniqueProviders = Array.from(
         new Map(providerLinks.map((p) => [p.provider_id, p])).values()
@@ -127,7 +125,6 @@ const MovieDetails = ({ countryCode }) => {
 
   const handleThumbnail = () => {
     setIsOpen(true);
-    console.log("In handle");
   };
 
   const handleClose = () => {
@@ -145,7 +142,6 @@ const MovieDetails = ({ countryCode }) => {
       const {
         data: { user },
       } = await supabase.auth.getUser();
-      console.log(user.id, details.id, newHeartState);
 
       await AddFavorite(user.id, details.id, type, newHeartState);
     };

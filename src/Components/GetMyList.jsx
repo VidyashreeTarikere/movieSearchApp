@@ -20,7 +20,7 @@ const GetMyList = ({ explore }) => {
           return;
         }
 
-        if (!user) {
+        if (!user?.id) {
           console.log("No user found!");
           setMovieIds([]);
           return;
@@ -30,7 +30,7 @@ const GetMyList = ({ explore }) => {
           try {
             const { data: favorites, error } = await supabase
               .from("favorites")
-              .select("movie_id, type")
+              .select("movie_id, type", { head: false })
               .eq("user_id", user.id);
 
             if (error) {
@@ -43,7 +43,7 @@ const GetMyList = ({ explore }) => {
                 favorites.map((fav) => ({
                   movie_id: fav.movie_id,
                   type: fav.type,
-                }))
+                })) || []
               );
             } else {
               setMovieIds([]);
@@ -72,6 +72,7 @@ const GetMyList = ({ explore }) => {
           .subscribe();
       } catch (error) {
         console.error("Unexpected Error!", error);
+        setMovieIds([]);
       }
     };
     fetchMyMovies();

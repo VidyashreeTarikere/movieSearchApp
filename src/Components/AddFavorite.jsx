@@ -2,11 +2,8 @@ import React from "react";
 import { supabase } from "../Utils/SupabaseClient";
 
 const AddFavorite = async (userId, movieId, movieType, isFavorite) => {
-  console.log(userId, movieId, isFavorite);
-
   try {
     if (isFavorite) {
-      // ADD to favorites
       const { error } = await supabase.from("favorites").insert([
         {
           user_id: userId,
@@ -17,9 +14,7 @@ const AddFavorite = async (userId, movieId, movieType, isFavorite) => {
 
       if (error) throw error;
       console.log("✅ Added to favorites");
-    }
-    //Delete favorite
-    else {
+    } else {
       const { error } = await supabase
         .from("favorites")
         .delete()

@@ -13,7 +13,8 @@ const MoviesPage = ({ explore }) => {
   const options = {
     method: "GET",
     headers: {
-      accept: "application/json",
+      Accept: "application/json",
+      "Content-Type": "application/json",
       Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_KEY}`,
     },
   };
@@ -75,10 +76,10 @@ const MoviesPage = ({ explore }) => {
         setter(processedItems);
       };
 
-      fetchAndSet(nowPlayingApi, setNowPlayingMovies);
+      fetchAndSet(nowPlayingApi, setNowPlayingMovies, "movie");
       fetchAndSet(trendingApi, setTrendingMovies);
       fetchAndSet(upcomingApi, setUpcomingMovies, "movie");
-      fetchAndSet(topRatedApi, setTopRatedMovies);
+      fetchAndSet(topRatedApi, setTopRatedMovies, "movie");
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
