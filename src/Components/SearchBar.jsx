@@ -145,7 +145,8 @@ const Search = ({ exploreType, setExploreType, explore, setExplore }) => {
             </button>
           </form>
         </div>
-
+      </div>
+      <div>
         {spinner && (
           <div className="flex items-center justify-center min-h-1/2">
             <Spinner

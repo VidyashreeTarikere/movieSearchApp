@@ -32,7 +32,12 @@ export default function App() {
   if (!session) {
     return (
       <div>
-        <SignIn supabase={supabase} />
+        <SignIn
+          supabase={supabase}
+          setExploreType={setExploreType}
+          setExplore={setExplore}
+          setCountryCode={setCountryCode}
+        />
       </div>
     );
   } else {
@@ -44,6 +49,7 @@ export default function App() {
             setExploreType={setExploreType}
             setExplore={setExplore}
             setCountryCode={setCountryCode}
+            session={session}
           />
         </div>
 

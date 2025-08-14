@@ -4,7 +4,13 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 
-const Header = ({ supabase, setExploreType, setExplore, setCountryCode }) => {
+const Header = ({
+  supabase,
+  setExploreType,
+  setExplore,
+  setCountryCode,
+  session,
+}) => {
   // const [userLocation, setUserLocation] = useState(null);
   const [lat, setLat] = useState(null);
   const [long, setLong] = useState(null);
@@ -143,16 +149,24 @@ const Header = ({ supabase, setExploreType, setExplore, setCountryCode }) => {
               ))}
             </nav>
 
-            <div className="hidden lg:flex items-center space-x-4">
-              <div className="flex items-center">
-                <Avatar supabase={supabase} />
+            {session ? (
+              <div className="hidden lg:flex items-center space-x-4">
+                <div className="flex items-center">
+                  <Avatar supabase={supabase} />
+                </div>
               </div>
-            </div>
+            ) : (
+              <div></div>
+            )}
 
             <div className="lg:hidden flex items-center space-x-3">
-              <div className="flex items-center">
-                <Avatar supabase={supabase} />
-              </div>
+              {session ? (
+                <div className="flex items-center">
+                  <Avatar supabase={supabase} />
+                </div>
+              ) : (
+                <div></div>
+              )}
 
               <button
                 onClick={toggleMobileMenu}
