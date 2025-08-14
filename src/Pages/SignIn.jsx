@@ -7,6 +7,9 @@ import Header from "../Components/Header";
 const SignIn = ({ supabase, setExploreType, setExplore, setCountryCode }) => {
   const [background, setBackground] = useState([]);
 
+  const demoEmail = "demo@example.com";
+  const demoPassword = "demopassword";
+
   const backgroundApi = `https://api.themoviedb.org/3/movie/top_rated`;
   const options = {
     method: "GET",
@@ -67,6 +70,16 @@ const SignIn = ({ supabase, setExploreType, setExplore, setCountryCode }) => {
 
         <div className="flex items-center justify-center min-h-screen w-full ">
           <div className="w-full max-w-md px-10 py-10 font-bold bg-gray-700  rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 ">
+            <div className="w-full max-w-md px-6 py-4 bg-black/30 backdrop-blur-sm border border-gray-100 rounded-md text-white text-center">
+              <p className="mb-2 font-bold">Demo Account:</p>
+              <p>
+                Email: <span className="font-mono">{demoEmail}</span>
+              </p>
+              <p>
+                Password: <span className="font-mono">{demoPassword}</span>
+              </p>
+            </div>
+
             <Auth
               supabaseClient={supabase}
               appearance={{
